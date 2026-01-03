@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Works | Anand Construction</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View completed rooftop and construction projects by Anand Construction. Explore our portfolio of quality construction works.">
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-left">📞 7010058764</div>
+    <div class="top-right">
+      <a href="/#contact" class="top-cta">Get Free Quote</a>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">Anand Construction</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/works">Works</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Works Section -->
+  <section>
+    <h2>Our Completed Projects</h2>
+    <p class="section-subtext">Explore our previous rooftop and construction works</p>
+
+    <div class="gallery">
+      <img src="/static/images/work1.jpg" class="gallery-img" alt="Work 1">
+      <img src="/static/images/work2.jpg" class="gallery-img" alt="Work 2">
+      <img src="/static/images/work3.jpg" class="gallery-img" alt="Work 3">
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <img id="lightbox-img">
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.gallery-img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Anand Construction. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

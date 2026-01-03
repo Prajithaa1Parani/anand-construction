@@ -1,0 +1,282 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f2f4f8;
+  color: #1f2933;
+  line-height: 1.6;
+}
+
+/* ================= TOP BAR ================= */
+.top-bar {
+  background: #0f172a; /* deep navy */
+  color: #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.top-cta {
+  background: #c9a24d; /* soft gold */
+  color: #0f172a;
+  padding: 6px 16px;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  background: #111827; /* darker navy */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c9a24d;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  color: #c9a24d;
+}
+
+/* ================= SECTIONS ================= */
+section {
+  max-width: 1100px;
+  margin: 70px auto;
+  padding: 0 20px;
+}
+
+section h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+  color: #0f172a;
+}
+
+.section-subtext {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* ================= ABOUT ================= */
+#about p {
+  max-width: 850px;
+  font-size: 16px;
+}
+
+/* ================= SERVICES ================= */
+.service-list {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  flex: 1;
+  min-width: 240px;
+  background: white;
+  padding: 25px;
+  border-left: 6px solid #c9a24d;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ================= GALLERY ================= */
+.gallery {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.gallery img {
+  width: 320px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+  transition: transform 0.25s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.04);
+}
+
+/* ================= CONTACT FORM ================= */
+#contact form {
+  max-width: 520px;
+}
+
+#contact input,
+#contact textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#contact textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+#contact button {
+  background: #0f172a;
+  color: #f9fafb;
+  border: none;
+  padding: 14px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+#contact button:hover {
+  background: #020617;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  background: #020617;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 25px;
+  margin-top: 90px;
+  font-size: 14px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .service-list {
+    flex-direction: column;
+  }
+
+  .gallery img {
+    width: 100%;
+  }
+}
+/* ================= LIGHTBOX ================= */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#lightbox.active {
+  display: flex;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 6px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+/* ================= FOOTER ================= */
+footer {
+  background: #020617;   /* deep navy */
+  color: #cbd5e1;
+  text-align: center;
+  padding: 30px 20px;
+  margin-top: 80px;
+  font-size: 14px;
+}
+
+footer p {
+  margin: 6px 0;
+}
+
+footer strong {
+  color: #c9a24d;   /* soft gold */
+  font-size: 16px;
+}
+/* ================= FLOATING CONTACT BUTTONS ================= */
+.floating-buttons {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 3000;
+}
+
+.floating-buttons a {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 52px;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease;
+}
+
+.floating-buttons a:hover {
+  transform: scale(1.08);
+}
+
+/* Call button */
+.call-btn {
+  background: #0f172a;   /* navy */
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+  background: #25D366;   /* WhatsApp green */
+}

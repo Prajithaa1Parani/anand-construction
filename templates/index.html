@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anand Construction</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Anand Construction provides trusted rooftop and construction services with quality workmanship. View our completed projects and contact us for reliable construction solutions.">
+
+  <meta name="keywords" content="Anand Construction, rooftop construction, building construction, roofing services, construction company">
+
+  <meta name="author" content="Anand Construction">
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+  <!-- ========== TOP HEADER BAR ========== -->
+  <div class="top-bar">
+    <div class="top-left">📞 7010058764</div>
+    <div class="top-right">
+      <a href="#contact" class="top-cta">Get Free Quote</a>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="nav-logo">Anand Construction</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      Anand Construction is a trusted rooftop and building construction service
+      provider, delivering strong, reliable, and long-lasting workmanship.
+      We focus on quality, safety, and customer satisfaction.
+    </p>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="service-list">
+      <div class="service-card">Rooftop Construction</div>
+      <div class="service-card">Roof Repair & Maintenance</div>
+      <div class="service-card">New Building Works</div>
+    </div>
+  </section>
+
+  <!-- ========== WORKS / GALLERY ========== -->
+  <section id="works">
+    <h2>Previous Works</h2>
+    <p class="section-subtext">Click to view completed projects</p>
+    <div class="gallery">
+      <img src="/static/images/work1.jpg" class="gallery-img" alt="Rooftop construction project by Anand Construction">
+      <img src="/static/images/work2.jpg" class="gallery-img" alt="Residential rooftop work completed by Anand Construction">
+      <img src="/static/images/work3.jpg" class="gallery-img" alt="Quality construction work by Anand Construction">
+
+    </div>
+    <a href="/works" class="view-works-btn">View All Works</a>
+
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+
+    <form action="/submit" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="text" name="phone" placeholder="Your Phone Number" required>
+      <textarea name="message" placeholder="Tell us about your work" required></textarea>
+      <button type="submit">Send Enquiry</button>
+    </form>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>© 2026 Anand Construction. All Rights Reserved.</p>
+  </footer>
+  <!-- Lightbox HTML -->
+<div id="lightbox">
+  <img id="lightbox-img">
+</div>
+
+<!-- Lightbox Script -->
+<script>
+  const images = document.querySelectorAll('.gallery-img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+<footer>
+  <p><strong>Anand Construction</strong></p>
+  <p>Rooftop & Construction Services</p>
+  <p>📞 7010058764 | ✉️ parani.chellapan@email.com</p>
+  <p>© 2026 Anand Construction. All Rights Reserved.</p>
+</footer>
+<!-- Floating Contact Buttons -->
+<div class="floating-buttons">
+  <a href="tel:7010058764" class="call-btn">📞</a>
+  <a href="https://wa.me/917010058764" target="_blank" class="whatsapp-btn">💬</a>
+</div>
+
+</body>
+</html>
