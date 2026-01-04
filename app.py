@@ -16,13 +16,15 @@ def get_db_connection():
     conn = sqlite3.connect("enquiries.db")
     conn.row_factory = sqlite3.Row
     conn.execute("""
-        CREATE TABLE IF NOT EXISTS enquiries (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            phone TEXT,
-            message TEXT
-        )
-    """)
+    CREATE TABLE IF NOT EXISTS enquiries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        phone TEXT,
+        message TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
     return conn
 
 
@@ -173,6 +175,7 @@ def admin():
             <th>Name</th>
             <th>Phone</th>
             <th>Message</th>
+            <th>Time</th>
           </tr>
     """ + "".join(
         f"""
@@ -181,6 +184,8 @@ def admin():
             <td>{e['name']}</td>
             <td>{e['phone']}</td>
             <td>{e['message']}</td>
+            <td>{e['created_at']}</td>
+
           </tr>
         """ for e in enquiries
     ) + """
