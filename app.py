@@ -128,7 +128,10 @@ def success():
 @requires_auth
 def admin():
     conn = get_db_connection()
-    enquiries = conn.execute("SELECT * FROM enquiries").fetchall()
+    enquiries = conn.execute(
+    "SELECT * FROM enquiries ORDER BY id DESC"
+).fetchall()
+
     conn.close()
 
     return """
