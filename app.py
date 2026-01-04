@@ -25,15 +25,14 @@ def get_db_connection():
     """)
     return conn
 
+
+# ---------------- EMAIL ALERT ----------------
 def send_email_alert(name, phone, message):
     sender = os.environ.get("EMAIL_USER")
     password = os.environ.get("EMAIL_PASS")
 
-    print("EMAIL_USER:", sender)
-    print("EMAIL_PASS exists:", bool(password))
-
     if not sender or not password:
-        print("❌ EMAIL ENV VARIABLES NOT FOUND")
+        print("⚠️ Email skipped (env vars not set)")
         return
 
     msg = MIMEMultipart()
@@ -51,30 +50,29 @@ Message: {message}
     msg.attach(MIMEText(body, "plain"))
 
     try:
-        print("⏳ Connecting to SMTP...")
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.set_debuglevel(1)   # 🔥 THIS IS IMPORTANT
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=10)
         server.starttls()
-        print("🔐 Logging in...")
         server.login(sender, password)
         server.send_message(msg)
         server.quit()
-        print("✅ EMAIL SENT SUCCESSFULLY")
+        print("✅ Email sent")
 
     except Exception as e:
-        print("❌ EMAIL ERROR:", repr(e))
-
+        # IMPORTANT: never crash app
+        print("❌ Email failed:", e)
 
 
 # ---------------- BASIC AUTH ----------------
 def check_auth(username, password):
     return username == ADMIN_USER and password == ADMIN_PASS
 
+
 def authenticate():
     return Response(
         "Login required", 401,
         {"WWW-Authenticate": 'Basic realm="Admin Area"'}
     )
+
 
 def requires_auth(f):
     def wrapper(*args, **kwargs):
@@ -85,21 +83,25 @@ def requires_auth(f):
     wrapper.__name__ = f.__name__
     return wrapper
 
-# ---------------- HOME (WEBSITE) ----------------
+
+# ---------------- ROUTES ----------------
 @app.route("/")
 def home():
     return render_template("index.html")
+
+
 @app.route("/works")
 def works():
     return render_template("works.html")
 
-# ---------------- FORM SUBMIT ----------------
+
 @app.route("/submit", methods=["POST"])
 def submit():
     name = request.form.get("name")
     phone = request.form.get("phone")
     message = request.form.get("message")
 
+    # Save enquiry (always)
     conn = get_db_connection()
     conn.execute(
         "INSERT INTO enquiries (name, phone, message) VALUES (?, ?, ?)",
@@ -107,16 +109,21 @@ def submit():
     )
     conn.commit()
     conn.close()
-    send_email_alert(name, phone, message)
+
+    # Email is OPTIONAL
+    try:
+        send_email_alert(name, phone, message)
+    except Exception as e:
+        print("Email exception ignored:", e)
 
     return redirect(url_for("success"))
 
-# ---------------- SUCCESS PAGE ----------------
+
 @app.route("/success")
 def success():
     return render_template("success.html")
 
-# ---------------- ADMIN PAGE ----------------
+
 @app.route("/admin")
 @requires_auth
 def admin():
@@ -155,7 +162,6 @@ def admin():
       </style>
     </head>
     <body>
-
       <div class="admin-container">
         <h2>Client Enquiries</h2>
         <table>
@@ -177,13 +183,12 @@ def admin():
     ) + """
         </table>
       </div>
-
     </body>
     </html>
     """
 
 
-# ---------------- RUN SERVER ----------------
+# ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
