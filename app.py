@@ -1,5 +1,9 @@
 from flask import Flask, request, redirect, url_for, render_template, Response
 import sqlite3
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import os
 
 app = Flask(__name__)
 
@@ -20,6 +24,47 @@ def get_db_connection():
         )
     """)
     return conn
+
+def send_email_alert(name, phone, message):
+    sender = os.environ.get("EMAIL_USER")
+    password = os.environ.get("EMAIL_PASS")
+
+    print("EMAIL_USER:", sender)
+    print("EMAIL_PASS exists:", bool(password))
+
+    if not sender or not password:
+        print("❌ EMAIL ENV VARIABLES NOT FOUND")
+        return
+
+    msg = MIMEMultipart()
+    msg["From"] = sender
+    msg["To"] = sender
+    msg["Subject"] = "New Enquiry - Anand Construction"
+
+    body = f"""
+New enquiry received:
+
+Name: {name}
+Phone: {phone}
+Message: {message}
+"""
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        print("⏳ Connecting to SMTP...")
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.set_debuglevel(1)   # 🔥 THIS IS IMPORTANT
+        server.starttls()
+        print("🔐 Logging in...")
+        server.login(sender, password)
+        server.send_message(msg)
+        server.quit()
+        print("✅ EMAIL SENT SUCCESSFULLY")
+
+    except Exception as e:
+        print("❌ EMAIL ERROR:", repr(e))
+
+
 
 # ---------------- BASIC AUTH ----------------
 def check_auth(username, password):
@@ -62,6 +107,7 @@ def submit():
     )
     conn.commit()
     conn.close()
+    send_email_alert(name, phone, message)
 
     return redirect(url_for("success"))
 
